@@ -8,12 +8,12 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.OutputMode
 import org.apache.spark.sql.types._
 
-
 object KafkaService  {
   private val spark = SparkService.getAndConfigureSparkSession()
   val logger = Logger(this.getClass)
   import spark.implicits._
 
+  // Schéma des données JSON pour la structure News
   val schemaNews = new StructType()
     .add("title", StringType)
     .add("description", StringType)
@@ -21,18 +21,7 @@ object KafkaService  {
     .add("timestamp", TimestampType)
 
   /**
-   * will return, we keep some kafka metadata for our example, otherwise we would only focus on "news" structure
-   *  |-- key: binary (nullable = true)
-   *  |-- value: binary (nullable = true)
-   *  |-- topic: string (nullable = true) :
-   *  |-- partition: integer (nullable = true) :
-   *  |-- offset: long (nullable = true) :
-   *  |-- timestamp: timestamp (nullable = true) :
-   *  |-- timestampType: integer (nullable = true)
-   *  |-- news: struct (nullable = true)
-   *  |    |-- title: string (nullable = true)
-   *  |    |-- description: string (nullable = true)
-   *
+   * Fonction de lecture depuis Kafka et transformation des données en Dataset[NewsKafka]
    */
   def read(startingOption: String = "startingOffsets", partitionsAndOffsets: String = "earliest"): Dataset[NewsKafka] = {
     logger.warn(
@@ -43,38 +32,26 @@ object KafkaService  {
          |GROUP_ID : ${ConfService.GROUP_ID}
          |""".stripMargin)
 
-    // This will read from our Kafka topic
-    // We'll received Kafka's metadata (topic, partition, offsets, key and value)
+    // Lecture des données depuis Kafka
     val dataframeStreaming = spark
       .readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", ConfService.BOOTSTRAP_SERVERS_CONFIG)
       .option("subscribe", ConfService.TOPIC_IN)
       .option("group.id", ConfService.GROUP_ID)
-      .option(startingOption, partitionsAndOffsets) //this only applies when a new query is started and that resuming will always pick up from where the query left off
+      .option(startingOption, partitionsAndOffsets)
       .load()
 
-    // We need to read our binary value to our class object News
-    val newsDataset: Dataset[NewsKafka] = dataframeStreaming.withColumn("news", // nested structure with our json
-        from_json($"value".cast(StringType), schemaNews) //From binary to JSON object
+    // Transformation du binaire en JSON et typage des données
+    val newsDataset: Dataset[NewsKafka] = dataframeStreaming.withColumn("news",
+        from_json($"value".cast(StringType), schemaNews) 
       ).as[NewsKafka]
 
-    newsDataset.filter(_.news != null) //fitler bad data
+    newsDataset.filter(_.news != null) // Filtrage des données incorrectes
   }
 
   /**
-   *  -------------------------------------------
-   *  Batch: 3
-   *  -------------------------------------------
-   *  +----+--------------------+-----+---------+------+--------------------+-------------+-------------+
-   *  | key|               value|topic|partition|offset|           timestamp|timestampType|         news|
-   *  +----+--------------------+-----+---------+------+--------------------+-------------+-------------+
-   *  |null|[7B 22 74 69 74 6...| news|        2|    12|2022-10-09 16:57:...|            0|{test, oh my}|
-   *  |null|[7B 22 74 69 74 6...| news|        2|    13|2022-10-09 16:57:...|            0|{test, oh my}|
-   *  |null|[7B 22 74 69 74 6...| news|        2|    14|2022-10-09 16:57:...|            0|{test, oh my}|
-   *  |null|[7B 22 74 69 74 6...| news|        2|    15|2022-10-09 16:57:...|            0|{test, oh my}|
-   *  +----+--------------------+-----+---------+------+--------------------+-------------+-------------+
-   *
+   * Affichage des données dans la console pour le débogage.
    */
   def debugStream[T](ds: Dataset[T], completeOutputMode : Boolean = true) = {
     val outputMode = if(completeOutputMode) { OutputMode.Complete() } else { OutputMode.Append() }
@@ -87,8 +64,15 @@ object KafkaService  {
       .start()
   }
 
-  //@TODO Read "README.md" file and write
-  //def writeToParquet(ds: Dataset[NewsKafka]) = {
-  //???
-  // }
+  /**
+   * Fonction d'écriture des données Kafka dans un fichier Parquet pour la persistance.
+   */
+  def writeToParquet(ds: Dataset[NewsKafka]) = {
+    ds.writeStream
+      .format("parquet")
+      .option("path", "news_parquet") // Chemin où le fichier Parquet sera sauvegardé
+      .option("checkpointLocation", "checkpoints") // Chemin pour stocker les informations de point de contrôle
+      .outputMode("append") // Mode Append pour ajouter les nouveaux enregistrements
+      .start()
+  }
 }

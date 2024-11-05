@@ -1,0 +1,121 @@
+README.md
+# Eco-conception des services numériques
+[Les diapositives pour introduire le sujet sont ici.](https://docs.google.com/presentation/d/1JlHG6yB2ra9kVxwERDb8FRoaDucQDOzcKX2CQ7S7UHU/edit?usp=sharing)
+## Prendre en compte les limites physiques
+
+Vous êtes une équipe de développeurs, UX/UI, data engineers et scientists travaillant sur une solution d’analyse de données venant des différentes sites de production et la consommation d'électricité en France, Réseau Transport Electrique (ou RTE).
+Votre solution [“Eco2Mix”](https://www.rte-france.com/eco2mix/) est utilisée par les particuliers et les professionnels, et agrège des centaines de sources de données en continu, et propose 10 ans de données.
+
+Après avoir organisé une [Fresque du Numérique](https://fresquedunumerique.org/) avec vos collègues de travail, les dirigeants de votre entreprise vous donne le feu vert pour démarrer un audit d’éco-conception de la solution [“Eco2Mix”](https://www.rte-france.com/eco2mix/) basé sur le référentiel interministériel d’écoconception des services numériques, pour juger conforme, non conforme ou non applications les différents éléments du référentiel.
+
+## Consignes
+Par équipe de 10, les 8 thématiques (stratégie, architecture, UX/UI, ...) et faites un audit de chaque critère présent dans le [Référentiel général d'écoconception de services numériques (RGESN)](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/) en indiquant si il est conforme, non conforme ou non applicable tout en justifiant si nécessaire en citant vos sources et en donnant des exemples.
+
+Les 8 thématiques :
+* Stratégie : Elle permet de déterminer et de suivre la pertinence, les enjeux et le pilotage de la conception du service numérique.
+* Spécifications : Indépendamment du type de gestion projet, cette thématique regroupe les éléments de cadrage projet, les moyens mis en œuvre, les objectifs et contraintes du projet sur toute la durée de vie du service numérique.
+* Architecture : La stratégie de conception et l'articulation des composants applicatifs entre le frontend et le backend.
+* UX/UI : Les étapes et méthodes de conception des services numériques pour définir les meilleures solutions d'interactions destinées aux utilisateurs.
+* Contenus :  Tous les documents et médias informatifs ajoutés au service numérique par des personnes contributrices et disponibles pour l'utilisateur final.
+* Frontend : Ensemble des composants en opération sur un terminal utilisateur pour permettre l'utilisation d'un service numérique.
+* Backend :  Ensemble des composants en opération côté serveur pour permettre le fonctionnement d'un service numérique.
+* Hébergement : Moyens mis en œuvre côté serveur pour permettre l'utilisation d'un service numérique.
+
+## De l'aide
+Vous trouverez dans les différents dossiers de ce répertoire quelques liens utiles selon certaines thématiques.
+
+## Rendu / Présentation
+Le résultat sera sous format d'une présentation à la classe avec un maximum d'exemples marquant pour que chacun puisse découvrir les autres thématiques selon votre point de vue (c'est le [principe d'arpentage](https://la-trouvaille.org/arpentage/))
+
+## Questionnaire final
+
+[Lien vers le questionnaire](https://techologie.net/extra/jeu-ecoconception/) de 16 questions
+
+
+backend\README.md
+# [Backend](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/#backend)
+
+## Load testing
+* https://gatling.io/
+
+
+frontend\README.md
+# [Frontend](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/#frontend)
+
+## Performance web
+Des outils pour mesurer la performance web : [PageSpeed Insights](https://pagespeed.web.dev/)
+
+## Comment mettre en cache des des données sur un site web ?
+
+## Compression
+
+## Lazy loading
+
+
+herbegement\README.md
+# Hébergement / Hosting
+## Comprendre le mix électrique par pays 
+* Consulter [electricity map](https://app.electricitymaps.com/map) et **identifier les pays avec une énergie peu carbonée**
+* Voir que l'intensité carbone change selon l'horaire et comment certains cloud provider s'en servent : https://cloud.google.com/sustainability/region-carbon
+* Voir les limites de certaines annoncent "100% renouvelable" : [AWS buys 100+ diesel generators... and that's just for Irish datacenters](https://www.theregister.com/2022/10/24/aws_irish_datacenter_diesel/)
+
+## Comprendre que les datacenters utilisent de l'energie et de l'eau
+A l'aide de ce site de l'hébergeur Scaleway, vous pouvez voir leur consommation en energie (PUE) et en eau (WUE) :
+* https://www.scaleway.com/fr/leadership-environnemental/
+
+Vous pouvez comparer ces valeurs avec ceux de Google Cloud Platform et conclure des choses :
+* https://www.google.com/intl/fr/about/datacenters/efficiency/
+
+# Des cloud providers sans impact ?
+En lisant ou parcourant ces 2 phrases et articles
+“Nous misons tout sur nos objectifs et nos actions pour construire une planète plus belle.” - [Amazon Web Services : la neutralité carbone d’ici 2040](https://www.aboutamazon.fr/engagements/nous-misons-tout-sur-le-climate-pledge-la-neutralit%C3%A9-carbone-dici-2040 )
+
+"on 24/7 carbon-free energy, everywhere, by 2030." [Google Cloud](https://sustainability.google/progress/projects/24x7/)
+Vous entendez « Je fais tourner mes calculs sur Google cloud car cela ne pollue pas. » que peut on dire ?
+
+Les « neutralités carbone » des entreprises du numérique - [EcoInfo CNRS](https://ecoinfo.cnrs.fr/2022/03/17/les-neutralites-carbone-des-entreprises-du-numerique/)
+
+Les réductions d'émissions de CO2 promises par les Cloud providers sont elles réalistes? - [Boavizta](https://boavizta.org/blog/les-reductions-d-emissions-de-co2-promises-par-les-cloud-providers-sont-elles-realistes)
+
+Que pensez-vous de ce concept de serveurs “carbon-aware” ?
+> flexible electricity demand that is optimized to coincide with the availability of low-carbon energy sources
+> Learn about how we are reducing our data center carbon footprint by shifting demand to when [the grid is cleaner.](https://blog.google/inside-google/infrastructure/data-centers-work-harder-sun-shines-wind-blows)
+
+
+Que pensez vous du on-premises VS Cloud Public ?
+
+> Firstly, the on-premises model means your IT infrastructure needs to be large enough to handle the most intense peaks in workload, such as Black Friday, or holiday periods for online stores. This means having massively under-utilized servers most of the time, often running at less than 10% of their capacity. As well as causing greenhouse gas emissions, this is a huge waste of energy, water, and mineral resources. - [Scaleway - Tristan Nitot](https://blog.scaleway.com/the-digital-sector-needs-to-step-up-and-play-its-part-in-mitigating-climate-change-heres-how/)
+
+
+lifecycle_assessment\README.md
+An example of a LCA : https://gauthierroussilhe.com/book/treebal/
+
+* What are the different scopes (1,2,3) ?
+* Why doing a LCA is challenging ?
+* What are the limits of this kind of analysis ?
+
+
+
+strategie\README.md
+# Stratégie
+Certaines entreprises publient en interne des documentation sur l’éco conception, que pensez vous de ce principe ?
+* Exemple [Ecodesign @ Decathlon](https://www.decathlon.design/726f8c765/p/24840a-eco-design/b/72ab53)
+
+## Limites
+### Equipements
+Le Chief Product Officer de votre entreprise organise une réunion avec toute votre équipe pour vous expliquer que le futur passera par des dashboard en réalité augmentée utilisant [des lunettes connectées](https://skarredghost.com/2022/11/17/qualcomm-snapdragon-ar2/), que pourriez-vous lui répondre ?
+
+
+### Optimisation 
+Vous travaillez un spécialiste d'un système d'enchère en temps réel pour fournir des publicités ciblées au bon moment et… votre service numérique permet d’échanger de la publicité en optimisant les requêtes entre les différents acheteurs d’espace (marques de vêtements, voitures, voyage en avion, montre de luxe…) et vendeurs d’espaces (médias comme Le Monde, Le Figaro, ou écrans publicitaire dans la rue “DOOH”)
+* [Exemple 1](https://www.teads.com/impact-and-teads-announce-global-partnership/) ou [Exemple 2](https://www.greenbids.ai/)
+
+Est-ce qu’optimiser un service c’est éco-concevoir ? Pour creuser [plus loin](https://gauthierroussilhe.com/articles/eco-conception-le-brouillard-a-venir#est-ce-quoptimiser-un-service-cest-eco-concevoir)
+
+### Toujours plus vert ?
+Votre équipe a énormément travaillé sur l’écoconception d’un site ecommerce de produits gourmands en ressources et réussi à vendre encore plus de produits, comment appelle t’on ce principe ?
+
+### Day 1
+Comment votre future entreprise pourra commencer à mettre en place l’éco-conception de leur service numérique ?
+
+

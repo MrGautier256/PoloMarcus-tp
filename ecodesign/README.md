@@ -1,31 +1,54 @@
-# Eco-conception des services numériques
-[Les diapositives pour introduire le sujet sont ici.](https://docs.google.com/presentation/d/1JlHG6yB2ra9kVxwERDb8FRoaDucQDOzcKX2CQ7S7UHU/edit?usp=sharing)
-## Prendre en compte les limites physiques
+# Practical work 
+* [Data engineering / distributed systems](https://github.com/polomarcus/tp/tree/main/data-engineering)
+* [Ecodesign](https://github.com/polomarcus/tp/tree/main/ecodesign)
 
-Vous êtes une équipe de développeurs, UX/UI, data engineers et scientists travaillant sur une solution d’analyse de données venant des différentes sites de production et la consommation d'électricité en France, Réseau Transport Electrique (ou RTE).
-Votre solution [“Eco2Mix”](https://www.rte-france.com/eco2mix/) est utilisée par les particuliers et les professionnels, et agrège des centaines de sources de données en continu, et propose 10 ans de données.
+## Tools you need for data engineering
+You should have Docker and a Scala IDE working properly on your computer.
 
-Après avoir organisé une [Fresque du Numérique](https://fresquedunumerique.org/) avec vos collègues de travail, les dirigeants de votre entreprise vous donne le feu vert pour démarrer un audit d’éco-conception de la solution [“Eco2Mix”](https://www.rte-france.com/eco2mix/) basé sur le référentiel interministériel d’écoconception des services numériques, pour juger conforme, non conforme ou non applications les différents éléments du référentiel.
+### A Scala Integrated Development Environment (IDE) :
+1. Install the IDE "[Intellij Idea Community](https://www.jetbrains.com/fr-fr/idea/download)": https://www.jetbrains.com/fr-fr/idea/download
+2. Install [the Scala plugin](https://www.jetbrains.com/help/idea/run-for-the-first-time.html#additional_plugins), it will give you a SBT (Scala Build Tool) shell on the bottom of your IDE. 
+3. [Fork this repo](https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) to have your own copy.
+4. Clone your fork on your machine
+5. Open Intellij, go to "File" then "Open" and then only select the folder of the current exercice from your fork clone on your computer. Then, on IntelliJ [set up the scala SDK (Software Development Kit) and JDK (Java SDK)](https://www.jetbrains.com/help/idea/sdk.html)
 
-## Consignes
-Par équipe de 10, les 8 thématiques (stratégie, architecture, UX/UI, ...) et faites un audit de chaque critère présent dans le [Référentiel général d'écoconception de services numériques (RGESN)](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/) en indiquant si il est conforme, non conforme ou non applicable tout en justifiant si nécessaire en citant vos sources et en donnant des exemples.
+#### Common mistakes
+Do you have one of these errors ?
+```
+Extracting Structure Failed
+```
 
-Les 8 thématiques :
-* Stratégie : Elle permet de déterminer et de suivre la pertinence, les enjeux et le pilotage de la conception du service numérique.
-* Spécifications : Indépendamment du type de gestion projet, cette thématique regroupe les éléments de cadrage projet, les moyens mis en œuvre, les objectifs et contraintes du projet sur toute la durée de vie du service numérique.
-* Architecture : La stratégie de conception et l'articulation des composants applicatifs entre le frontend et le backend.
-* UX/UI : Les étapes et méthodes de conception des services numériques pour définir les meilleures solutions d'interactions destinées aux utilisateurs.
-* Contenus :  Tous les documents et médias informatifs ajoutés au service numérique par des personnes contributrices et disponibles pour l'utilisateur final.
-* Frontend : Ensemble des composants en opération sur un terminal utilisateur pour permettre l'utilisation d'un service numérique.
-* Backend :  Ensemble des composants en opération côté serveur pour permettre le fonctionnement d'un service numérique.
-* Hébergement : Moyens mis en œuvre côté serveur pour permettre l'utilisation d'un service numérique.
+```
+Cannot determine Java VM executable in selected JDK
+```
 
-## De l'aide
-Vous trouverez dans les différents dossiers de ce répertoire quelques liens utiles selon certaines thématiques.
+This will solve your problem: [do this](https://www.jetbrains.com/help/idea/sdk.html#add_global_sdk)
+**Beware** : For Spark code, we have to use **Java 17** (JDK17) or inferior, otherwise you'll have [this error](https://stackoverflow.com/a/73349341/3535853)
 
-## Rendu / Présentation
-Le résultat sera sous format d'une présentation à la classe avec un maximum d'exemples marquant pour que chacun puisse découvrir les autres thématiques selon votre point de vue (c'est le [principe d'arpentage](https://la-trouvaille.org/arpentage/))
+Now, you can restart the SBT shell using [the button with the arrows.](https://www.jetbrains.com/help/idea/sbt-support.html#sbt_structure)
+```
+[success] Total time: 31 s
+```
+After a successful restart you can execute `run` or `test` commands.
 
-## Questionnaire final
+### Docker and Compose
+Take time to read and install
 
-[Lien vers le questionnaire](https://techologie.net/extra/jeu-ecoconception/) de 16 questions
+https://docs.docker.com/get-started/overview/
+```
+docker --version
+Docker version XX.XX.XX
+```
+
+https://docs.docker.com/compose/
+```
+docker compose --version # Or docker compose --version
+docker compose version X.XX.X
+```
+
+### Fork OR update the repo on your own Github account
+#### Fork 
+* Click on https://github.com/polomarcus/tp/fork
+
+#### Update your fork
+* https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork
